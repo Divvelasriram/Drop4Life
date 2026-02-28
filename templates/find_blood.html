@@ -6,39 +6,44 @@
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <style>
     #map {
-        height: 500px;
+        height: 60vh;
+        min-height: 350px;
+        max-height: 600px;
         width: 100%;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        box-shadow: var(--shadow-soft);
+        z-index: 1;
+        /* Keep map below navbar */
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="row mb-4">
+<div class="row mb-4 fade-in-up">
     <div class="col-12 text-center">
-        <h2 class="fw-bold text-danger">Find Nearby Blood Banks</h2>
-        <p class="text-muted">Use the map below to locate registered hospitals and blood banks to donate or request
-            blood.</p>
+        <h2 class="fw-bolder text-dark mb-2">Find Nearby <span class="text-danger">Blood Banks</span></h2>
+        <p class="text-muted lead" style="font-weight: 300;">Use the interactive map below to locate registered
+            hospitals and blood banks to donate or request blood.</p>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-8 mb-4">
+<div class="row fade-in-up" style="animation-delay: 0.2s;">
+    <div class="col-lg-8 mb-4 order-1 order-lg-1">
         <!-- The Map Container -->
-        <div id="map"></div>
+        <div id="map" class="border border-light"></div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-lg-4 order-2 order-lg-2">
         <!-- Search & Filter Card -->
-        <div class="card shadow border-0 mb-4">
-            <div class="card-header bg-danger text-white">
-                <h5 class="mb-0">Filter Availability</h5>
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header border-0 pt-4 pb-0 bg-transparent">
+                <h5 class="fw-bolder text-dark mb-0"><i class="fa-solid fa-filter me-2 text-danger"></i>Filter
+                    Availability</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body pt-3">
                 <form action="#" method="GET">
                     <div class="mb-3">
-                        <label class="form-label">Blood Group</label>
+                        <label class="form-label text-muted small fw-bold">Select Blood Group</label>
                         <select class="form-select" name="bg">
                             <option value="">All Groups</option>
                             <option value="A+">A+</option>
@@ -51,13 +56,14 @@
                             <option value="AB-">AB-</option>
                         </select>
                     </div>
-                    <button class="btn btn-danger w-100" type="submit">Search</button>
+                    <button class="btn btn-danger w-100 shadow-sm fw-bold rounded-pill mt-2" type="submit">Search
+                        Availability</button>
                 </form>
             </div>
         </div>
 
         <!-- Dynamic List of Hospitals (Placeholder for Demo) -->
-        <div class="card shadow border-0 overflow-auto" style="max-height: 250px;">
+        <div class="card shadow-sm border-0 overflow-auto" style="max-height: 380px;">
             <div class="card-body p-0">
                 <div class="list-group list-group-flush" id="hospital-list">
                     <!-- Hospitals will be injected here via JS -->

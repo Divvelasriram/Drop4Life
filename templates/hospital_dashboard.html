@@ -1,24 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
+<div class="row fade-in-up">
     <!-- Sidebar: Hospital Info & Create Request -->
     <div class="col-md-4 mb-4">
-        <div class="card shadow border-0 mb-4">
-            <div class="card-body">
-                <h4 class="card-title fw-bold text-danger">{{ profile.hospital_name }}</h4>
-                <hr>
-                <p class="mb-1"><strong>License:</strong> {{ profile.license_number }}</p>
-                <p class="mb-1"><strong>Contact:</strong> {{ profile.contact_person }}</p>
-                <p class="mb-1"><strong>Phone:</strong> {{ profile.phone }}</p>
-                <p class="mb-1"><strong>Address:</strong> {{ profile.address }}</p>
+        <div class="card shadow-sm border-0 mb-4 position-relative overflow-hidden">
+            <div class="position-absolute top-0 start-0 w-100"
+                style="height: 60px; background: linear-gradient(135deg, var(--primary-light) 0%, var(--surface-white) 100%); z-index: 0;">
+            </div>
+            <div class="card-body position-relative z-1 pt-4">
+                <h4 class="card-title fw-bolder text-dark mb-1 mt-3">{{ profile.hospital_name }}</h4>
+                <p class="text-danger fw-bold small mb-3 letter-spacing-1 text-uppercase">Registered Hospital</p>
+                <hr class="opacity-25">
+                <p class="mb-2 text-muted"><strong class="text-dark"><i
+                            class="fa-solid fa-id-badge me-2 text-primary-light"></i>License:</strong> {{
+                    profile.license_number }}</p>
+                <p class="mb-2 text-muted"><strong class="text-dark"><i
+                            class="fa-solid fa-user-doctor me-2 text-primary-light"></i>Contact:</strong> {{
+                    profile.contact_person }}</p>
+                <p class="mb-2 text-muted"><strong class="text-dark"><i
+                            class="fa-solid fa-phone me-2 text-primary-light"></i>Phone:</strong> {{ profile.phone }}
+                </p>
+                <p class="mb-1 text-muted"><strong class="text-dark"><i
+                            class="fa-solid fa-location-dot me-2 text-primary-light"></i>Address:</strong> {{
+                    profile.address }}</p>
             </div>
         </div>
 
-        <div class="card shadow border-0">
-            <div class="card-header bg-danger text-white">
-                <h5 class="mb-0"><i class="fa-solid fa-truck-medical me-2"></i>Post Emergency Request</h5>
+        <div class="card shadow-sm border-0">
+            <div class="card-header border-0 pt-4 pb-0 bg-transparent">
+                <h5 class="fw-bolder text-dark mb-3"><i class="fa-solid fa-truck-medical me-2 text-danger"></i>Post
+                    Emergency Request</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body pt-0">
                 <form method="POST" action="">
                     {{ request_form.hidden_tag() }}
                     <fieldset class="form-group">
@@ -48,21 +61,25 @@
     <div class="col-md-8">
 
         <!-- Inventory Management -->
-        <div class="card shadow border-0 mb-4">
-            <div class="card-header bg-white border-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
-                <h5 class="fw-bold"><i class="fa-solid fa-box-archive me-2 text-danger"></i>Blood Inventory</h5>
-                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#updateInventoryModal">Update Stock</button>
+        <div class="card shadow-sm border-0 mb-4">
+            <div
+                class="card-header bg-transparent border-0 pt-4 pb-0 px-4 d-flex justify-content-between align-items-center">
+                <h5 class="fw-bolder text-dark m-0"><i class="fa-solid fa-box-archive me-2 text-danger"></i>Blood
+                    Inventory</h5>
+                <button class="btn btn-sm btn-outline-danger shadow-sm rounded-pill px-3" data-bs-toggle="modal"
+                    data-bs-target="#updateInventoryModal"><i class="fa-solid fa-plus me-1"></i> Update Stock</button>
             </div>
-            <div class="card-body">
+            <div class="card-body px-4">
                 {% if inventory %}
-                <div class="row text-center row-cols-2 row-cols-md-4 g-3">
+                <div class="row text-center row-cols-2 row-cols-md-4 g-3 mt-1">
                     {% for item in inventory %}
                     <div class="col">
-                        <div class="p-3 border rounded bg-light">
-                            <h3 class="text-danger fw-bold mb-1">{{ item.blood_group }}</h3>
-                            <h2 class="mb-0 fw-bold">{{ item.units_available }}</h2>
-                            <small class="text-muted">Units</small>
+                        <div class="p-3 border-0 rounded-4 shadow-sm h-100 d-flex flex-column justify-content-center"
+                            style="background: linear-gradient(135deg, #ffffff 0%, #fcfcfc 100%);">
+                            <h3 class="text-danger fw-bolder mb-1">{{ item.blood_group }}</h3>
+                            <h2 class="mb-0 fw-bold text-dark">{{ item.units_available }}</h2>
+                            <small class="text-muted fw-medium text-uppercase letter-spacing-1"
+                                style="font-size: 0.75rem;">Units</small>
                         </div>
                     </div>
                     {% endfor %}
@@ -74,29 +91,31 @@
         </div>
 
         <!-- Active Requests Tab -->
-        <div class="card shadow border-0">
-            <div class="card-header bg-white border-0 pt-4 pb-0">
-                <h5 class="fw-bold"><i class="fa-solid fa-tower-broadcast me-2 text-danger"></i>Recent Requests</h5>
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-transparent border-bottom-0 pt-4 pb-2 px-4">
+                <h5 class="fw-bolder text-dark m-0"><i class="fa-solid fa-tower-broadcast me-2 text-danger"></i>Recent
+                    Requests</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body px-4">
                 {% if requests %}
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Date</th>
-                                <th>Blood Group</th>
-                                <th>Units Needed</th>
-                                <th>Urgency</th>
-                                <th>Status</th>
+                                <th class="text-uppercase text-muted small fw-bold tracking-wide">Date</th>
+                                <th class="text-uppercase text-muted small fw-bold tracking-wide">Blood Group</th>
+                                <th class="text-uppercase text-muted small fw-bold tracking-wide">Units Needed</th>
+                                <th class="text-uppercase text-muted small fw-bold tracking-wide">Urgency</th>
+                                <th class="text-uppercase text-muted small fw-bold tracking-wide">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for req in requests %}
                             <tr>
-                                <td>{{ req.request_date.strftime('%Y-%m-%d %H:%M') }}</td>
-                                <td><strong>{{ req.blood_group }}</strong></td>
-                                <td>{{ req.units_required }}</td>
+                                <td class="fw-medium text-dark">{{ req.request_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td><span class="badge bg-danger text-white rounded-pill px-3 fs-6">{{ req.blood_group
+                                        }}</span></td>
+                                <td class="fw-bold">{{ req.units_required }}</td>
                                 <td>
                                     {% if req.urgency == 'emergency' %}
                                     <span class="badge bg-danger"><i
@@ -109,9 +128,10 @@
                                 </td>
                                 <td>
                                     {% if req.status == 'pending' %}
-                                    <span class="badge bg-secondary">Pending</span>
+                                    <span class="badge bg-warning-subtle text-warning rounded-pill px-3">Pending</span>
                                     {% else %}
-                                    <span class="badge bg-success">Fulfilled</span>
+                                    <span
+                                        class="badge bg-success-subtle text-success rounded-pill px-3">Fulfilled</span>
                                     {% endif %}
                                 </td>
                             </tr>

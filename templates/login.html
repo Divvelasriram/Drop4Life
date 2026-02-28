@@ -1,49 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow">
-            <div class="card-header bg-danger text-white">
-                <h4 class="mb-0">Login to Drop4Life</h4>
+<div class="row justify-content-center fade-in-up">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-sm border-0 rounded-4 mt-5">
+            <div class="card-header bg-transparent border-0 pt-5 pb-0 text-center">
+                <i class="fa-solid fa-circle-user text-danger mb-3" style="font-size: 3rem;"></i>
+                <h3 class="fw-bolder text-dark mb-0">Welcome Back</h3>
+                <p class="text-muted small mt-1">Sign in to continue to Drop4Life</p>
             </div>
-            <div class="card-body">
+            <div class="card-body px-4 px-md-5 pt-4">
                 <form method="POST" action="">
                     {{ form.hidden_tag() }}
                     <fieldset class="form-group">
                         <div class="mb-3">
                             {{ form.email.label(class="form-control-label") }}
                             {% if form.email.errors %}
-                                {{ form.email(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.email.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
+                            {{ form.email(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                             {% else %}
-                                {{ form.email(class="form-control") }}
+                            {{ form.email(class="form-control") }}
                             {% endif %}
                         </div>
                         <div class="mb-3">
                             {{ form.password.label(class="form-control-label") }}
                             {% if form.password.errors %}
-                                {{ form.password(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.password.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
+                            {{ form.password(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
                             {% else %}
-                                {{ form.password(class="form-control") }}
+                            {{ form.password(class="form-control") }}
                             {% endif %}
                         </div>
                     </fieldset>
-                    <div class="form-group mt-4">
-                        {{ form.submit(class="btn btn-outline-danger w-100") }}
+                    <div class="form-group mt-5 mb-2">
+                        {{ form.submit(class="btn btn-danger w-100 btn-lg shadow-sm rounded-pill fw-bold") }}
                     </div>
                 </form>
             </div>
-            <div class="card-footer text-center">
-                <small class="text-muted">
+            <div class="card-footer bg-transparent border-0 pb-5 pt-0 text-center">
+                <small class="text-muted" style="font-weight: 500;">
                     Need An Account? <a href="{{ url_for('register') }}" class="text-danger fw-bold">Sign Up Now</a>
                 </small>
             </div>

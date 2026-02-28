@@ -2,20 +2,38 @@
 
 {% block content %}
 <!-- Hero Section -->
-<div class="row align-items-center py-5">
-    <div class="col-md-6">
-        <h1 class="display-4 fw-bold text-danger mb-3">Save a Life, <br>Give Blood Today.</h1>
-        <p class="lead text-muted mb-4">Drop4Life is a smart, technology-driven platform connecting blood donors,
-            recipients, and blood banks in real-time. Join our community and become a hero.</p>
-        <div class="d-flex gap-3">
-            <a href="{{ url_for('register') }}" class="btn btn-danger btn-lg shadow-sm">Become a Donor</a>
-            <a href="{{ url_for('find_blood') }}" class="btn btn-outline-danger btn-lg">Find Blood Bank</a>
+<div class="row align-items-center py-5 fade-in-up">
+    <div class="col-md-7 pe-md-5">
+        <span class="badge bg-danger-subtle text-danger mb-3 px-3 py-2 rounded-pill fw-bold">Connecting Donors
+            Instantly</span>
+        <h1 class="display-3 fw-bolder mb-3 text-dark" style="letter-spacing: -1.5px;">
+            Save a Life,<br><span class="text-gradient">Give Blood Today.</span>
+        </h1>
+        <p class="lead text-muted mb-4 fs-4" style="font-weight: 300;">Drop4Life is a smart, technology-driven platform
+            connecting blood donors, recipients, and hospitals in real-time. Join our community and become an everyday
+            hero.</p>
+        <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="{{ url_for('register') }}" class="btn btn-danger btn-lg px-5 py-3 shadow">Become a Donor</a>
+            <a href="{{ url_for('find_blood') }}" class="btn btn-outline-danger btn-lg px-5 py-3 bg-white">Find Blood
+                Bank</a>
         </div>
     </div>
-    <div class="col-md-6 text-center">
-        <!-- Using a placeholder icon since we want zero cost / easy setup -->
-        <i class="fa-solid fa-heart-pulse text-danger"
-            style="font-size: 15rem; opacity: 0.8; animation: pulse 2s infinite;"></i>
+    <div class="col-md-5 text-center mt-5 mt-md-0 position-relative">
+        <div class="position-absolute top-50 start-50 translate-middle bg-danger rounded-circle opacity-10"
+            style="width: 300px; height: 300px; filter: blur(50px);"></div>
+        <!-- High Quality SVG Hero Image -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" class="img-fluid position-relative z-1"
+            style="animation: float 6s ease-in-out infinite; max-height: 400px;">
+            <path fill="url(#grad)"
+                d="M250,50 C150,50 50,150 150,300 C200,380 250,450 250,450 C250,450 300,380 350,300 C450,150 350,50 250,50 Z" />
+            <path fill="#ffffff" d="M220,180 h60 v140 h-60 z M180,220 h140 v60 h-140 z" />
+            <defs>
+                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--primary-dark);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#ff5252;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+        </svg>
     </div>
 </div>
 
@@ -47,19 +65,5 @@
     </div>
 </div>
 
-<style>
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
 
-        50% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-</style>
 {% endblock %}

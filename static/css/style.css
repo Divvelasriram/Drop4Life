@@ -1,0 +1,217 @@
+/* =========================================
+   Global Theme & Typography
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-red: #D32F2F;
+    --primary-dark: #B71C1C;
+    --primary-light: #FFCDD2;
+    --bg-light: #f8f9fa;
+    --text-dark: #2C3E50;
+    --text-muted: #6c757d;
+    --surface-white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --shadow-hover: 0 12px 40px 0 rgba(211, 47, 47, 0.15);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* =========================================
+   Glassmorphism & Navigation
+   ========================================= */
+.navbar {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    color: var(--primary-red) !important;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    margin: 0 0.5rem;
+}
+
+.nav-link:hover {
+    color: var(--primary-red) !important;
+}
+
+/* Custom Nav Underline Animation */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-red);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.btn-nav-register {
+    background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
+    color: white !important;
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-nav-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+}
+
+.btn-nav-logout {
+    border-color: var(--primary-red);
+    color: var(--primary-red) !important;
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-nav-logout:hover {
+    background-color: var(--primary-red);
+    color: white !important;
+}
+
+/* =========================================
+   Cards & Containers
+   ========================================= */
+.card {
+    background: var(--surface-white);
+    border: none;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Hero Section Gradients */
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #ff5252 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Form Controls */
+.form-control,
+.form-select {
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fcfcfc;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(211, 47, 47, 0.15);
+    border-color: var(--primary-red);
+    background-color: #fff;
+}
+
+/* Buttons */
+.btn-danger {
+    background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-dark) 100%);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+}
+
+.btn-outline-danger {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+    border-radius: 12px;
+    font-weight: 600;
+    border-width: 2px;
+}
+
+.btn-outline-danger:hover {
+    background: var(--primary-red);
+    color: white;
+}
+
+/* Base Animations */
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}

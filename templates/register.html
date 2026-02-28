@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow">
-            <div class="card-header bg-danger text-white">
-                <h4 class="mb-0">Join Drop4Life Today</h4>
+<div class="row justify-content-center fade-in-up">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 rounded-4 mt-4 mb-5">
+            <div class="card-header bg-transparent border-0 pt-5 pb-0 text-center">
+                <i class="fa-solid fa-user-plus text-danger mb-3" style="font-size: 3rem;"></i>
+                <h3 class="fw-bolder text-dark mb-0">Join Drop4Life Today</h3>
+                <p class="text-muted small mt-1">Create an account to save lives or find blood.</p>
             </div>
-            <div class="card-body">
+            <div class="card-body px-4 px-md-5 pt-4">
                 <form method="POST" action="">
                     {{ form.hidden_tag() }}
                     <fieldset class="form-group mb-4">
@@ -71,8 +73,10 @@
                         </div>
 
                         <!-- Specific Fields Wrapper -->
-                        <div id="donor-fields" class="mt-4 p-3 border rounded bg-light">
-                            <h5 class="text-danger">Donor Information</h5>
+                        <div id="donor-fields" class="mt-4 p-4 border-0 rounded-4"
+                            style="background: linear-gradient(135deg, #fcfcfc 0%, var(--primary-light) 200%);">
+                            <h5 class="text-danger fw-bolder mb-3"><i class="fa-solid fa-heart me-2"></i>Donor
+                                Information</h5>
                             <div class="mb-3">
                                 {{ form.full_name.label(class="form-control-label") }}
                                 {{ form.full_name(class="form-control") }}
@@ -83,8 +87,10 @@
                             </div>
                         </div>
 
-                        <div id="hospital-fields" class="mt-4 p-3 border rounded bg-light" style="display: none;">
-                            <h5 class="text-danger">Hospital / Blood Bank Information</h5>
+                        <div id="hospital-fields" class="mt-4 p-4 border-0 rounded-4"
+                            style="background: linear-gradient(135deg, #fcfcfc 0%, var(--primary-light) 200%); display: none;">
+                            <h5 class="text-danger fw-bolder mb-3"><i class="fa-solid fa-hospital me-2"></i>Hospital
+                                Information</h5>
                             <div class="mb-3">
                                 {{ form.hospital_name.label(class="form-control-label") }}
                                 {{ form.hospital_name(class="form-control") }}
@@ -100,13 +106,13 @@
                         </div>
 
                     </fieldset>
-                    <div class="form-group mt-3">
-                        {{ form.submit(class="btn btn-danger w-100 btn-lg") }}
+                    <div class="form-group mt-5 mb-2">
+                        {{ form.submit(class="btn btn-danger w-100 btn-lg shadow-sm rounded-pill fw-bold") }}
                     </div>
                 </form>
             </div>
-            <div class="card-footer text-center">
-                <small class="text-muted">
+            <div class="card-footer bg-transparent border-0 pb-5 pt-0 text-center">
+                <small class="text-muted" style="font-weight: 500;">
                     Already Have An Account? <a href="{{ url_for('login') }}" class="text-danger fw-bold">Sign In</a>
                 </small>
             </div>

@@ -63,9 +63,15 @@ To achieve a premium, functional web application without incurring costs, we car
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 Live Demo & Deployment
+We have linked this project to **Vercel** for a live, serverless demonstration. 
+👉 **Check out the live website:** [https://drop4-life.vercel.app/](https://drop4-life.vercel.app/)
 
-If you are a reviewer or a student setting this up for a presentation:
+---
+
+## 💻 How to Run Locally
+
+If you are a reviewer or a student setting this up for a local presentation:
 
 1. **Clone the repository:**
    ```bash

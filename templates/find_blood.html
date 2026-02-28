@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block head %}
+<!-- Leaflet CSS for Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h2 class="fw-bold text-danger">Find Nearby Blood Banks</h2>
+        <p class="text-muted">Use the map below to locate registered hospitals and blood banks to donate or request
+            blood.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <!-- The Map Container -->
+        <div id="map"></div>
+    </div>
+
+    <div class="col-md-4">
+        <!-- Search & Filter Card -->
+        <div class="card shadow border-0 mb-4">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Filter Availability</h5>
+            </div>
+            <div class="card-body">
+                <form action="#" method="GET">
+                    <div class="mb-3">
+                        <label class="form-label">Blood Group</label>
+                        <select class="form-select" name="bg">
+                            <option value="">All Groups</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-danger w-100" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dynamic List of Hospitals (Placeholder for Demo) -->
+        <div class="card shadow border-0 overflow-auto" style="max-height: 250px;">
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush" id="hospital-list">
+                    <!-- Hospitals will be injected here via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize map centered on Hyderabad, India
+        var map = L.map('map').setView([17.3850, 78.4867], 12);
+
+        // Load free OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Custom Marker Icon
+        var bloodIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Realistic Hyderabad Blood Banks
+        var hospitals = [
+            { name: "Apollo Blood Bank", lat: 17.4170, lng: 78.4140, phone: "040-23607777", address: "Jubilee Hills, Hyderabad" },
+            { name: "Chiranjeevi Blood Bank", lat: 17.4265, lng: 78.4131, phone: "040-23555005", address: "Jubilee Hills Check Post, Hyderabad" },
+            { name: "NTR Memorial Trust Blood Bank", lat: 17.4085, lng: 78.4357, phone: "040-30799999", address: "Banjara Hills, Hyderabad" },
+            { name: "Osmania General Hospital Blood Bank", lat: 17.3753, lng: 78.4728, phone: "040-24600146", address: "Afzal Gunj, Hyderabad" },
+            { name: "KIMS Blood Bank", lat: 17.4411, lng: 78.4842, phone: "040-44885000", address: "Secunderabad" }
+        ];
+
+        var listContainer = document.getElementById('hospital-list');
+
+        // Try getting user's actual location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var userLat = position.coords.latitude;
+                var userLng = position.coords.longitude;
+                map.setView([userLat, userLng], 10);
+
+                L.circleMarker([userLat, userLng], { color: 'blue', radius: 8 }).addTo(map).bindPopup("You are here");
+
+                // Add sample hospital near user for demo
+                hospitals.push({ name: "Nearby B.Tech Demo Hospital", lat: userLat + 0.01, lng: userLng + 0.01, phone: "000-000-0000", address: "Local Demo" });
+                renderHospitals(); // Re-render with new data
+            }, function () {
+                renderHospitals(); // render defaults if geolocation fails
+            });
+        } else {
+            renderHospitals();
+        }
+
+        function renderHospitals() {
+            listContainer.innerHTML = '';
+            hospitals.forEach(function (h) {
+                // Add Map Marker
+                var popupContent = `<b>${h.name}</b><br>${h.address}<br>Tel: ${h.phone}<br><a href="#" class="btn btn-sm btn-danger mt-2">Request Blood</a>`;
+                L.marker([h.lat, h.lng], { icon: bloodIcon }).addTo(map).bindPopup(popupContent);
+
+                // Add to List
+                listContainer.innerHTML += `
+                    <div class="list-group-item list-group-item-action p-3">
+                        <h6 class="mb-1 text-danger fw-bold">${h.name}</h6>
+                        <small class="text-muted d-block mb-1"><i class="fa-solid fa-location-dot me-1"></i>${h.address}</small>
+                        <small class="text-muted"><i class="fa-solid fa-phone me-1"></i>${h.phone}</small>
+                    </div>
+                `;
+            });
+        }
+    });
+</script>
+{% endblock %}

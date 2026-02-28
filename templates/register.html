@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Join Drop4Life Today</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group mb-4">
+                        <div class="mb-3">
+                            {{ form.role.label(class="form-control-label fw-bold") }}
+                            {{ form.role(class="form-select", id="role-select") }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.username.label(class="form-control-label") }}
+                                {% if form.username.errors %}
+                                {{ form.username(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">{% for error in form.username.errors %}<span>{{ error
+                                        }}</span>{% endfor %}</div>
+                                {% else %}
+                                {{ form.username(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.email.label(class="form-control-label") }}
+                                {% if form.email.errors %}
+                                {{ form.email(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">{% for error in form.email.errors %}<span>{{ error
+                                        }}</span>{% endfor %}</div>
+                                {% else %}
+                                {{ form.email(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.password.label(class="form-control-label") }}
+                                {% if form.password.errors %}
+                                {{ form.password(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">{% for error in form.password.errors %}<span>{{ error
+                                        }}</span>{% endfor %}</div>
+                                {% else %}
+                                {{ form.password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.confirm_password.label(class="form-control-label") }}
+                                {% if form.confirm_password.errors %}
+                                {{ form.confirm_password(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">{% for error in form.confirm_password.errors %}<span>{{
+                                        error }}</span>{% endfor %}</div>
+                                {% else %}
+                                {{ form.confirm_password(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.phone.label(class="form-control-label") }}
+                            {{ form.phone(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.address.label(class="form-control-label") }}
+                            {{ form.address(class="form-control", rows=2) }}
+                        </div>
+
+                        <!-- Specific Fields Wrapper -->
+                        <div id="donor-fields" class="mt-4 p-3 border rounded bg-light">
+                            <h5 class="text-danger">Donor Information</h5>
+                            <div class="mb-3">
+                                {{ form.full_name.label(class="form-control-label") }}
+                                {{ form.full_name(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.blood_group.label(class="form-control-label") }}
+                                {{ form.blood_group(class="form-select") }}
+                            </div>
+                        </div>
+
+                        <div id="hospital-fields" class="mt-4 p-3 border rounded bg-light" style="display: none;">
+                            <h5 class="text-danger">Hospital / Blood Bank Information</h5>
+                            <div class="mb-3">
+                                {{ form.hospital_name.label(class="form-control-label") }}
+                                {{ form.hospital_name(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.license_number.label(class="form-control-label") }}
+                                {{ form.license_number(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.contact_person.label(class="form-control-label") }}
+                                {{ form.contact_person(class="form-control") }}
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <div class="form-group mt-3">
+                        {{ form.submit(class="btn btn-danger w-100 btn-lg") }}
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small class="text-muted">
+                    Already Have An Account? <a href="{{ url_for('login') }}" class="text-danger fw-bold">Sign In</a>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const roleSelect = document.getElementById('role-select');
+        const donorFields = document.getElementById('donor-fields');
+        const hospitalFields = document.getElementById('hospital-fields');
+
+        function toggleFields() {
+            if (roleSelect.value === 'donor') {
+                donorFields.style.display = 'block';
+                hospitalFields.style.display = 'none';
+            } else {
+                donorFields.style.display = 'none';
+                hospitalFields.style.display = 'block';
+            }
+        }
+
+        roleSelect.addEventListener('change', toggleFields);
+        toggleFields(); // Initial run
+    });
+</script>
+{% endblock %}

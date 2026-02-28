@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="row align-items-center py-5">
+    <div class="col-md-6">
+        <h1 class="display-4 fw-bold text-danger mb-3">Save a Life, <br>Give Blood Today.</h1>
+        <p class="lead text-muted mb-4">Drop4Life is a smart, technology-driven platform connecting blood donors,
+            recipients, and blood banks in real-time. Join our community and become a hero.</p>
+        <div class="d-flex gap-3">
+            <a href="{{ url_for('register') }}" class="btn btn-danger btn-lg shadow-sm">Become a Donor</a>
+            <a href="{{ url_for('find_blood') }}" class="btn btn-outline-danger btn-lg">Find Blood Bank</a>
+        </div>
+    </div>
+    <div class="col-md-6 text-center">
+        <!-- Using a placeholder icon since we want zero cost / easy setup -->
+        <i class="fa-solid fa-heart-pulse text-danger"
+            style="font-size: 15rem; opacity: 0.8; animation: pulse 2s infinite;"></i>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="row mt-5 pt-4 border-top text-center g-4">
+    <div class="col-md-4">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+            <i class="fa-solid fa-map-location-dot text-danger mb-3" style="font-size: 3rem;"></i>
+            <h4 class="fw-bold">Real-Time Locator</h4>
+            <p class="text-muted">Find nearby blood banks and check real-time blood availability instantly using our
+                integrated map system.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+            <i class="fa-solid fa-bell text-danger mb-3" style="font-size: 3rem;"></i>
+            <h4 class="fw-bold">Emergency Alerts</h4>
+            <p class="text-muted">Get instant notifications via Telegram or Email when a critical blood shortage happens
+                in your area.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="p-4 shadow-sm bg-light rounded h-100">
+            <i class="fa-solid fa-medal text-danger mb-3" style="font-size: 3rem;"></i>
+            <h4 class="fw-bold">Earn Rewards</h4>
+            <p class="text-muted">Earn social points and certificates for your regular donations. Track your progress
+                with Bronze, Silver, and Gold tiers.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+{% endblock %}

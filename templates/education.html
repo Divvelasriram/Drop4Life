@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-5 text-center">
+    <div class="col-12">
+        <h2 class="fw-bold text-danger display-5">Education & Awareness</h2>
+        <p class="lead text-muted">Learn about the importance of blood donation, understand the process, and bust common
+            myths.</p>
+    </div>
+</div>
+
+<div class="row mb-5 g-4">
+    <!-- Eligibility Criteria -->
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h4 class="text-danger fw-bold border-bottom pb-2 mb-3"><i
+                        class="fa-solid fa-clipboard-check me-2"></i>Who Can Donate?</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Age: 18 - 65 years
+                        old.</li>
+                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Weight: At least 45
+                        kg (50 kg in some regions).</li>
+                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Health: Must be in
+                        good general health and feeling well.</li>
+                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Hemoglobin: Minimum
+                        12.5 g/dL.</li>
+                    <li class="list-group-item"><i class="fa-solid fa-check text-success me-2"></i>Frequency: Males
+                        every 3 months, Females every 4 months.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Myth Busting -->
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h4 class="text-warning fw-bold border-bottom pb-2 mb-3"><i class="fa-solid fa-ban me-2"></i>Myth vs
+                    Fact</h4>
+                <div class="accordion" id="mythsAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold text-danger" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#myth1">
+                                Myth: Donating blood makes you weak.
+                            </button>
+                        </h2>
+                        <div id="myth1" class="accordion-collapse collapse" data-bs-parent="#mythsAccordion">
+                            <div class="accordion-body">
+                                <strong>Fact:</strong> Your body replaces the lost fluids within 24 hours and the red
+                                blood cells within a few weeks. It does not cause permanent weakness.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold text-danger" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#myth2">
+                                Myth: I can get an infection from donating.
+                            </button>
+                        </h2>
+                        <div id="myth2" class="accordion-collapse collapse" data-bs-parent="#mythsAccordion">
+                            <div class="accordion-body">
+                                <strong>Fact:</strong> A sterile, new needle is used for each donation and gets
+                                discarded immediately. You cannot catch diseases from donating blood.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center mb-5 border p-5 rounded bg-danger text-white shadow-sm">
+    <div class="col-12">
+        <h3 class="fw-bold mb-3">One Pint Can Save 3 Lives.</h3>
+        <p class="fs-5 mb-4">You have the power to be a hero in someone's life today.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg text-danger fw-bold px-5">Register as a
+            Donor</a>
+    </div>
+</div>
+{% endblock %}

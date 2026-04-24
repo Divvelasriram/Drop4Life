@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row fade-in-up justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-0 pt-4 px-4">
+                <h4 class="fw-bolder text-dark mb-0"><i class="fa-solid fa-user-pen me-2 text-danger"></i>Edit Profile</h4>
+                <p class="text-muted mb-0 mt-1">Update your personal and health information</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+
+                    <h6 class="text-uppercase text-muted fw-bold small mb-3">Personal Information</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.full_name.label(class="form-label fw-medium") }}
+                            {{ form.full_name(class="form-control", placeholder="Your full name") }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.blood_group.label(class="form-label fw-medium") }}
+                            {{ form.blood_group(class="form-select") }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.phone.label(class="form-label fw-medium") }}
+                            {{ form.phone(class="form-control", placeholder="Phone number") }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.emergency_contact.label(class="form-label fw-medium") }}
+                            {{ form.emergency_contact(class="form-control", placeholder="Emergency contact number") }}
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        {{ form.address.label(class="form-label fw-medium") }}
+                        {{ form.address(class="form-control", rows="2", placeholder="Your address") }}
+                    </div>
+
+                    <hr class="my-4">
+                    <h6 class="text-uppercase text-muted fw-bold small mb-3">Health Details</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.date_of_birth.label(class="form-label fw-medium") }}
+                            {{ form.date_of_birth(class="form-control", type="date") }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.weight_kg.label(class="form-label fw-medium") }}
+                            {{ form.weight_kg(class="form-control", placeholder="e.g. 65.5") }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.medical_conditions.label(class="form-label fw-medium") }}
+                        {{ form.medical_conditions(class="form-control", rows="2", placeholder="Any known medical conditions (e.g. diabetes, hypertension)") }}
+                    </div>
+                    <div class="mb-4">
+                        {{ form.allergies.label(class="form-label fw-medium") }}
+                        {{ form.allergies(class="form-control", rows="2", placeholder="Any allergies (e.g. penicillin, latex)") }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary px-4">Cancel</a>
+                        {{ form.submit(class="btn btn-danger px-5") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

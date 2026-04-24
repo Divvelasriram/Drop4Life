@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, IntegerField, FloatField, DateField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from models import User
 
 class RegistrationForm(FlaskForm):
@@ -50,3 +50,21 @@ class RequestForm(FlaskForm):
     units_required = IntegerField('Units Required', validators=[DataRequired()])
     urgency = SelectField('Urgency', choices=[('normal', 'Normal'), ('urgent', 'Urgent'), ('emergency', 'Emergency')], validators=[DataRequired()])
     submit = SubmitField('Post Request')
+
+class DonorProfileForm(FlaskForm):
+    full_name = StringField('Full Name', validators=[DataRequired(), Length(min=2, max=100)])
+    blood_group = SelectField('Blood Group', choices=[('A+', 'A+'), ('A-', 'A-'), ('B+', 'B+'), ('B-', 'B-'), ('AB+', 'AB+'), ('AB-', 'AB-'), ('O+', 'O+'), ('O-', 'O-')], validators=[DataRequired()])
+    phone = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=20)])
+    address = TextAreaField('Address', validators=[Optional()])
+    date_of_birth = DateField('Date of Birth', validators=[Optional()])
+    weight_kg = FloatField('Weight (kg)', validators=[Optional()])
+    medical_conditions = TextAreaField('Medical Conditions', validators=[Optional()])
+    allergies = TextAreaField('Allergies', validators=[Optional()])
+    emergency_contact = StringField('Emergency Contact', validators=[Optional(), Length(max=20)])
+    submit = SubmitField('Save Changes')
+
+class RecordDonationForm(FlaskForm):
+    donor_email = StringField('Donor Email', validators=[DataRequired(), Email()])
+    blood_group = SelectField('Blood Group', choices=[('A+', 'A+'), ('A-', 'A-'), ('B+', 'B+'), ('B-', 'B-'), ('AB+', 'AB+'), ('AB-', 'AB-'), ('O+', 'O+'), ('O-', 'O-')], validators=[DataRequired()])
+    units_donated = IntegerField('Units Donated', validators=[DataRequired()])
+    submit = SubmitField('Record Donation')

@@ -27,7 +27,13 @@ class DonorProfile(db.Model):
     address = db.Column(db.Text, nullable=True)
     points = db.Column(db.Integer, default=0)
     last_donation_date = db.Column(db.DateTime, nullable=True)
-    
+
+    date_of_birth = db.Column(db.Date, nullable=True)
+    weight_kg = db.Column(db.Float, nullable=True)
+    medical_conditions = db.Column(db.Text, nullable=True)
+    allergies = db.Column(db.Text, nullable=True)
+    emergency_contact = db.Column(db.String(20), nullable=True)
+
     # Relationships
     donations = db.relationship('DonationHistory', backref='donor', lazy=True)
 

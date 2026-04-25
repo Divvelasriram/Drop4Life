@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="fade-in-up">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bolder text-dark"><i class="fa-solid fa-shield-halved me-2 text-danger"></i>Admin Panel</h2>
+        <span class="badge bg-danger fs-6 px-3 py-2">{{ users|length }} Users</span>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="row mb-4 g-3">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3">
+                <h3 class="text-danger fw-bold mb-0">{{ donors|length }}</h3>
+                <small class="text-muted fw-bold text-uppercase">Donors</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3">
+                <h3 class="text-danger fw-bold mb-0">{{ hospitals|length }}</h3>
+                <small class="text-muted fw-bold text-uppercase">Hospitals</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3">
+                <h3 class="text-danger fw-bold mb-0">{{ donations|length }}</h3>
+                <small class="text-muted fw-bold text-uppercase">Recent Donations</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm text-center p-3">
+                <h3 class="text-danger fw-bold mb-0">{{ blood_requests|length }}</h3>
+                <small class="text-muted fw-bold text-uppercase">Blood Requests</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-pills mb-4" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-users">All Users</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-donors">Donors</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-hospitals">Hospitals</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-requests">Blood Requests</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-donations">Donations</button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- All Users -->
+        <div class="tab-pane fade show active" id="tab-users">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td class="fw-medium">{{ user.username }}</td>
+                                    <td class="text-muted">{{ user.email }}</td>
+                                    <td>
+                                        {% if user.role == 'admin' %}
+                                        <span class="badge bg-dark">Admin</span>
+                                        {% elif user.role == 'donor' %}
+                                        <span class="badge bg-success">Donor</span>
+                                        {% else %}
+                                        <span class="badge bg-primary">Hospital</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if user.role != 'admin' %}
+                                        <form method="POST" action="{{ url_for('admin_delete_user', user_id=user.id) }}"
+                                              onsubmit="return confirm('Delete user {{ user.username }}?');" style="display:inline;">
+                                            <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                        {% else %}
+                                        <span class="text-muted small">Protected</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donors -->
+        <div class="tab-pane fade" id="tab-donors">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th><th>Blood Group</th><th>Phone</th><th>Points</th><th>Last Donation</th><th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d in donors %}
+                                <tr>
+                                    <td class="fw-medium">{{ d.full_name }}</td>
+                                    <td><span class="badge bg-danger rounded-pill px-3">{{ d.blood_group }}</span></td>
+                                    <td>{{ d.phone }}</td>
+                                    <td class="fw-bold">{{ d.points }}</td>
+                                    <td>{{ d.last_donation_date.strftime('%Y-%m-%d') if d.last_donation_date else 'Never' }}</td>
+                                    <td class="text-muted small">{{ d.address or '-' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hospitals -->
+        <div class="tab-pane fade" id="tab-hospitals">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Hospital Name</th><th>License</th><th>Contact Person</th><th>Phone</th><th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for h in hospitals %}
+                                <tr>
+                                    <td class="fw-medium">{{ h.hospital_name }}</td>
+                                    <td>{{ h.license_number }}</td>
+                                    <td>{{ h.contact_person }}</td>
+                                    <td>{{ h.phone }}</td>
+                                    <td class="text-muted small">{{ h.address }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blood Requests -->
+        <div class="tab-pane fade" id="tab-requests">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th><th>Hospital</th><th>Blood Group</th><th>Units</th><th>Urgency</th><th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in blood_requests %}
+                                <tr>
+                                    <td>{{ r.request_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    <td class="fw-medium">{{ r.hospital.hospital_name }}</td>
+                                    <td><span class="badge bg-danger rounded-pill">{{ r.blood_group }}</span></td>
+                                    <td>{{ r.units_required }}</td>
+                                    <td>
+                                        {% if r.urgency == 'emergency' %}
+                                        <span class="badge bg-danger">Emergency</span>
+                                        {% elif r.urgency == 'urgent' %}
+                                        <span class="badge bg-warning text-dark">Urgent</span>
+                                        {% else %}
+                                        <span class="badge bg-info text-dark">Normal</span>
+                                        {% endif %}
+                                    </td>
+                                    <td><span class="badge bg-{{ 'success' if r.status == 'fulfilled' else 'warning' }}-subtle text-{{ 'success' if r.status == 'fulfilled' else 'warning' }}">{{ r.status|capitalize }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donations -->
+        <div class="tab-pane fade" id="tab-donations">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th><th>Donor</th><th>Hospital</th><th>Units</th><th>Points</th><th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for don in donations %}
+                                <tr>
+                                    <td>{{ don.donation_date.strftime('%Y-%m-%d') }}</td>
+                                    <td class="fw-medium">{{ don.donor.full_name }}</td>
+                                    <td>{{ don.hospital.hospital_name }}</td>
+                                    <td>{{ don.units_donated }}</td>
+                                    <td><span class="badge bg-success-subtle text-success">+{{ don.points_awarded }}</span></td>
+                                    <td><span class="badge bg-primary-subtle text-primary">{{ don.status|capitalize }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
